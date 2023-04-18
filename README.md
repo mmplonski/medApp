@@ -20,7 +20,6 @@ https://github.com/mmplonski/gateway
 https://github.com/mmplonski/researchProjectService
 https://github.com/mmplonski/patientsService
 https://github.com/mmplonski/referralService
-Następnie uruchom je wszystkie za pomoca kompilatora.
 Then run them all with the compiler.
 
 ## How to use the app.
