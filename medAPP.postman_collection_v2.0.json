@@ -1,0 +1,699 @@
+{
+	"info": {
+		"_postman_id": "7c3774a1-9747-4c5a-942b-6532269690ab",
+		"name": "medAPP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "patients",
+			"item": [
+				{
+					"name": "getPatients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/patients",
+						"description": "Returns all patients in the database."
+					},
+					"response": []
+				},
+				{
+					"name": "getPatient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/patients/{id}",
+						"description": "Returns patient from database by {id}. If patient does not exist it will return 404 with message:"
+					},
+					"response": []
+				},
+				{
+					"name": "addPatient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"firstName\": \"Andrzej\",\n        \"lastName\": \"Nowak\",\n        \"email\": \"nowak@wp.pl\",\n        \"agreementsToProjects\": [],\n        \"medicalResearchOrders\": []\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/patients",
+						"description": "Returns patient from database by {id}. If the patient with the given e-mail already exists in the database, it will return 409 \"message\": \"There is already a patient in the database with the given e-mail address\"."
+					},
+					"response": []
+				},
+				{
+					"name": "deletePatient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/patients/{id}",
+						"description": "Removes the patient from the database by {id}. If the patient is not in the database, it will display 404 with the message \"The patient does not exist in the database\""
+					},
+					"response": []
+				},
+				{
+					"name": "putPatient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"\",\n    \"email\": \"\",\n    \"agreementsToProjects\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/patients/{id}",
+						"description": "Modifies all fields, performs validations. If the patient is not in the database, it will display 404 with the message \"The patient does not exist in the database\". If the patient with the given e-mail already exists in the database, it will return 409 \"message\": \"There is already a patient in the database with the given e-mail address\"."
+					},
+					"response": []
+				},
+				{
+					"name": "patchPatient",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"\",\n    \"email\": \"\",\n    \"agreementsToProjects\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/patients/{id}",
+						"description": "Modifies selected fields but does not allow to change the id. If the patient is not in the database, it will display 404 with the message \"The patient does not exist in the database\". If the patient with the given e-mail already exists in the database, it will return 409 \"message\": \"There is already a patient in the database with the given e-mail address\"."
+					},
+					"response": []
+				},
+				{
+					"name": "addAgreeToProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/patients/agree?id&projectCode",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"agree"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null
+								},
+								{
+									"key": "projectCode",
+									"value": null
+								}
+							]
+						},
+						"description": "Adds consent to the project. If we want to add a patient to the project, he must first agree to participate in the project."
+					},
+					"response": []
+				},
+				{
+					"name": "withdrawAgreeToProject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/patients/agree?id&projectCode",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"agree"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null
+								},
+								{
+									"key": "projectCode",
+									"value": null
+								}
+							]
+						},
+						"description": "Removes consent to participate in the project. If the patient is already added to the project but withdraws his consent"
+					},
+					"response": []
+				}
+			],
+			"description": "A service that allows you to create/modify/delete patients and their contact details."
+		},
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "getProjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8087/projects",
+						"description": "Returns a list of projects in the database."
+					},
+					"response": []
+				},
+				{
+					"name": "getProject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8087/projects/{code}",
+						"description": "Returns the project by id from the database."
+					},
+					"response": []
+				},
+				{
+					"name": "addProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"description\": \"\",\n    \"startDate\": \"2023-10-10T06:00:00\",\n    \"endDate\": \"2024-10-10T06:00:00\",\n    \"participantLimit\": 0,\n    \"participantNumber\": 0,\n    \"projectParticipant\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8087/projects",
+						"description": "Adds the project to the database"
+					},
+					"response": []
+				},
+				{
+					"name": "registerPatientToProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8087/projects/643814ffec4556012110f7cc/patient/1",
+						"description": "Registers the patient for the project, checks if the project exists in the database, if the limit of participants has not been reached and if the patient has agreed to participate in the project."
+					},
+					"response": []
+				},
+				{
+					"name": "removePatientFromProject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8087/projects/{projectCode}/patient/{patientId}",
+						"description": "Removes the patient from the project."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "refferals",
+			"item": [
+				{
+					"name": "getReferralsForMedicalTest",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8088/referrals",
+						"description": "Downloads all research orders"
+					},
+					"response": []
+				},
+				{
+					"name": "addReferralForMedicalTest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"patientId\": \"1\",\n    \"projectCode\": \"643814ffec4556012110f7cc\",\n    \"date\": \"2024-10-10T06:00:00\",\n    \"tests\": [\"GLUKOZA\",\"KORTYZOL\",\"HCG\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8088/referrals",
+						"description": "Adds a test order, checks if the patient and the project exist in the database, tests are a list of tests that make up the order"
+					},
+					"response": []
+				},
+				{
+					"name": "getMedicalTestResultsForSpecificPatient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8088/referrals/results/1",
+						"description": "Retrieves the test result for a specific patient."
+					},
+					"response": []
+				},
+				{
+					"name": "addMedicalTestResult",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"testName\": \"HCG\",\n    \"result\": \"65.12\",\n    \"refferalCode\": \"643e5b141625bd4375bc253d\",\n    \"patient\": {\n        \"id\": 1,\n        \"email\": \"a.nowak@wp.pl\"\n    },\n    \"project\": {\n        \"code\": \"643814ffec4556012110f7cc\",\n        \"name\": \"Badanie skuteczności nowego leku na chorobę Alzheimera\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8088/referrals/results",
+						"description": "Adds the test result, provided that the test is included in the test order."
+					},
+					"response": []
+				},
+				{
+					"name": "patchMedicalTestResult",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"testName\": \"dasd\",\n    \"result\": \"65.12\",\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8088/referrals/results/{code}",
+						"description": "Modifies selected fields, only testname and result can be changed."
+					},
+					"response": []
+				},
+				{
+					"name": "putMedicalTestResult",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"testName\": \"GLUKOZA\",\n        \"result\": \"65.12\",\n        \"refferalCode\": \"643d1445e6aee4000f1454e3\",\n        \"patient\": {\n            \"id\": 1,\n            \"email\": \"mplonski1@wp.pl\"\n        },\n        \"project\": {\n            \"code\": \"643814ffec4556012110f7cc\",\n            \"name\": \"Badanie skuteczności nowego leku na chorobę Alzheimera\"\n        }\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8088/referrals/results/{code}",
+						"description": "Replaces the entire object"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteMedicalTestResult",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8088/referrals/results/{code}",
+						"description": "Deletes the test result from the database."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gateway",
+			"item": [
+				{
+					"name": "patients",
+					"item": [
+						{
+							"name": "getPatients",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:9000/patients-service/patients",
+								"description": "```\nReturns all patients in the database.\n```\n\n![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAQAAAAngNWGAAABDUlEQVR4AYXRgUZDYRjH4TegFTKgpEqiFJgoWAoMEQGBgBboChaaAKxLKAhAhQqAdAmpBIQolkCFqp2nITvNKXuA7+/Hhzey5OWjE4Nq3rzY1f9/NGHPB549492+8Ww060iCS2XdctZdI3GsECmb+HJoIX6x6EgDm+lURTH+YB7V9nAqE5WNme4YKuOiY6iMe6PaQxUUIuTbswgFVNJwA8sO3Bn6yR6bWZMSNtJwDtuWfHpQxaPx9C9zadil7jrCigbq6UXceNIVKTWUIqypm2ytJdTiNyNeXclF6GttOVfeDEc7qzjR23r3OMFqZKng1kw0mXGLrfibHTScOZWgGv9TdC6ROFeMTgwYiIxvJzMRWQbeGZUAAAAASUVORK5CYII=)"
+							},
+							"response": []
+						},
+						{
+							"name": "getPatient",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:9000/patients-service/patients/{id}"
+							},
+							"response": []
+						},
+						{
+							"name": "addPatient",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"firstName\": \"Andrzej\",\n        \"lastName\": \"Nowak\",\n        \"email\": \"nowak@wp.pl\",\n        \"agreementsToProjects\": [],\n        \"medicalResearchOrders\": []\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/patients-service/patients"
+							},
+							"response": []
+						},
+						{
+							"name": "deletePatient",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:9000/patients-service/patients/{id}"
+							},
+							"response": []
+						},
+						{
+							"name": "putStudent",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"\",\n    \"email\": \"\",\n    \"agreementsToProjects\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/patients-service/patients/{id}"
+							},
+							"response": []
+						},
+						{
+							"name": "patchStudent",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"\",\n    \"email\": \"\",\n    \"agreementsToProjects\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/patients-service/patients/{id}"
+							},
+							"response": []
+						},
+						{
+							"name": "addAgreeToProject",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/patients-service/patients/agree?id&projectCode",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"patients-service",
+										"patients",
+										"agree"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": null
+										},
+										{
+											"key": "projectCode",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "withdrawAgreeToProject",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/patients-service/patients/agree?id&projectCode",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"patients-service",
+										"patients",
+										"agree"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": null
+										},
+										{
+											"key": "projectCode",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "GATEWAY-SERVICE is a proxy gateway through which all queries outside the microservices architecture will be directed to this application and this application will redirect these queries to the appropriate services."
+				},
+				{
+					"name": "projects",
+					"item": [
+						{
+							"name": "getProjects",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/research-projects-service/projects",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"research-projects-service",
+										"projects"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getProject",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:9000/research-projects-service/{code}"
+							},
+							"response": []
+						},
+						{
+							"name": "addProject",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"\",\n    \"description\": \"\",\n    \"startDate\": \"2023-10-10T06:00:00\",\n    \"endDate\": \"2024-10-10T06:00:00\",\n    \"participantLimit\": 0,\n    \"participantNumber\": 0,\n    \"projectParticipant\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/research-projects-service/projects"
+							},
+							"response": []
+						},
+						{
+							"name": "registerPatientToProject",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": "http://localhost:9000/research-projects-service/projects/{projectCode}/patient/{patientId}"
+							},
+							"response": []
+						},
+						{
+							"name": "removePatientFromProject",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": "http://localhost:9000/research-projects-service/projects/{projectCode}/patient/{patientId}"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "refferals",
+					"item": [
+						{
+							"name": "getReferralsForMedicalTest",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/referral-test-service/referrals"
+							},
+							"response": []
+						},
+						{
+							"name": "addReferralForMedicalTest",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"patientId\": \"1\",\n    \"projectCode\": \"643814ffec4556012110f7cc\",\n    \"date\": \"2024-10-10T06:00:00\",\n    \"tests\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/referral-test-service/referrals"
+							},
+							"response": []
+						},
+						{
+							"name": "getMedicalTestResultsForSpecificPatient",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:9000/referral-test-service/referrals/results/1"
+							},
+							"response": []
+						},
+						{
+							"name": "addMedicalTestResult",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"testName\": \"GLUKOZA\",\n    \"result\": \"65.12\",\n    \"refferalCode\": \"643d1445e6aee4000f1454e3\",\n    \"patient\": \"1\",\n    \"project\": \"643814ffec4556012110f7cc\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/referral-test-service/referrals/results"
+							},
+							"response": []
+						},
+						{
+							"name": "patchMedicalTestResult",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"testName\": \"dasd\",\n    \"result\": \"65.12\",\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/referral-test-service/referrals/results/{code}"
+							},
+							"response": []
+						},
+						{
+							"name": "putMedicalTestResult",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"testName\": \"GLUKOZA\",\n        \"result\": \"65.12\",\n        \"refferalCode\": \"643d1445e6aee4000f1454e3\",\n        \"patient\": {\n            \"id\": 1,\n            \"email\": \"mplonski1@wp.pl\"\n        },\n        \"project\": {\n            \"code\": \"643814ffec4556012110f7cc\",\n            \"name\": \"Badanie skuteczności nowego leku na chorobę Alzheimera\"\n        }\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9000/referral-test-service/referrals/results/{code}"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteMedicalTestResult",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:9000/referral-test-service/referrals/results/{code}"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
